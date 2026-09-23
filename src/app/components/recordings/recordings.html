@@ -1,0 +1,32 @@
+<section id="recordings" class="recordings" aria-labelledby="recordings-title">
+  <video #recordingsVideo class="recordings__video" autoplay muted loop playsinline preload="metadata" (canplay)="startVideo(recordingsVideo)" aria-hidden="true">
+    <source src="/videos/recording.mp4" type="video/mp4" />
+  </video>
+  <div class="recordings__shade" aria-hidden="true"></div>
+
+  <div class="recordings__content">
+    <h2 id="recordings-title">ELLOS<br />VINIERON<br />PRIMERO</h2>
+  </div>
+
+  <div class="recordings__gallery" aria-label="Galería de grabaciones">
+    @for (video of galleryVideos; track video; let index = $index) {
+      <article class="recording-card">
+        <video
+          class="recording-card__video"
+          muted
+          loop
+          playsinline
+          preload="auto"
+          #galleryVideo
+          aria-label="Grabación {{ index + 1 }}"
+        >
+          <source [src]="'/videos/' + video" type="video/mp4" />
+        </video>
+        <footer class="recording-card__footer">
+          <span>[{{ (index + 1).toString().padStart(2, '0') }}] - grabación</span>
+          <span>motion</span>
+        </footer>
+      </article>
+    }
+  </div>
+</section>

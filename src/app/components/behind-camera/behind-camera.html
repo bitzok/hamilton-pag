@@ -1,0 +1,47 @@
+<section id="behind-camera" class="behind-camera" aria-labelledby="behind-camera-title">
+  <div class="film-title">
+    <h2 id="behind-camera-title">ELLOS VINIERON PRIMERO</h2>
+    <p>por Patrick Hamilton</p>
+  </div>
+
+  <div class="cast-carousel" aria-label="Actores">
+    <div class="cast-carousel__track">
+      <span>Edward Santa Cruz</span>
+      <i aria-hidden="true">•</i>
+      <span>Belen</span>
+      <i aria-hidden="true">•</i>
+      <span>Edward Santa Cruz</span>
+      <i aria-hidden="true">•</i>
+      <span>Belen</span>
+      <i aria-hidden="true">•</i>
+    </div>
+  </div>
+
+  <div class="photo-grid" aria-label="Fotografías detrás de cámaras">
+    @for (photo of visiblePhotos; track photo) {
+      <button class="photo-card" type="button" (click)="openPhoto(photo)" [attr.aria-label]="'Ampliar ' + photo">
+        <img [src]="'/images/' + photo" [alt]="'Detrás de cámaras: ' + photo" loading="eager" decoding="async" />
+      </button>
+    }
+  </div>
+
+  <nav class="photo-pagination" aria-label="Paginación de fotografías">
+    <button type="button" [disabled]="currentPage === 0 || isLoading()" (click)="goToPage(currentPage - 1)">← atrás</button>
+    <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
+    <button type="button" [disabled]="currentPage === totalPages - 1 || isLoading()" (click)="goToPage(currentPage + 1)">siguiente →</button>
+  </nav>
+
+  @if (isLoading()) {
+    <div class="gallery-loader" role="status" aria-live="polite">
+      <span class="gallery-loader__spinner" aria-hidden="true"></span>
+      <span>cargando archivo</span>
+    </div>
+  }
+
+  @if (selectedPhoto) {
+    <div class="photo-viewer" role="dialog" aria-modal="true" aria-label="Fotografía ampliada" (click)="closePhoto()">
+      <button class="photo-viewer__close" type="button" aria-label="Cerrar fotografía" (click)="closePhoto(); $event.stopPropagation()">×</button>
+      <img class="photo-viewer__image" [src]="'/images/' + selectedPhoto" [alt]="'Fotografía ampliada: ' + selectedPhoto" (click)="$event.stopPropagation()" />
+    </div>
+  }
+</section>

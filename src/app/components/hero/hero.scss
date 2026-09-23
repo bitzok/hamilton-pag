@@ -1,0 +1,107 @@
+:host {
+  --accent: #ff211a;
+  --ink: #f4f1ec;
+  display: block;
+  height: 100dvh;
+}
+
+.hero {
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  color: var(--ink);
+  background: #151515;
+  font-family: 'Arial Narrow', 'Helvetica Neue', sans-serif;
+}
+
+.hero__video,
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__video {
+  z-index: -2;
+  object-fit: cover;
+  filter: grayscale(0.35) contrast(1.1) brightness(0.72);
+}
+
+.hero__shade {
+  z-index: -1;
+  background:
+    linear-gradient(110deg, rgba(11, 11, 11, 0.68) 0%, rgba(11, 11, 11, 0.12) 55%, rgba(11, 11, 11, 0.3) 100%),
+    linear-gradient(0deg, rgba(11, 11, 11, 0.46), transparent 34%);
+}
+
+.hero__header {
+  position: absolute;
+  top: clamp(1.25rem, 4vw, 3rem);
+  left: clamp(1.25rem, 4vw, 4rem);
+  z-index: 1;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  color: var(--accent);
+  font-family: Georgia, serif;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  text-decoration: none;
+}
+
+.brand__mark {
+  font-family: Arial, sans-serif;
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+h1 {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  color: var(--accent);
+  font-size: clamp(3.2rem, 6.5vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -0.09em;
+  line-height: 0.8;
+  text-transform: lowercase;
+}
+
+.title-line {
+  position: absolute;
+  display: inline-block;
+  color: inherit;
+  animation: reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  text-decoration: none;
+  transition: color 220ms ease;
+  cursor: pointer;
+}
+
+.title-line:hover {
+  color: #246bff;
+}
+
+.title-line--camera { top: 31%; left: 11%; }
+.title-line--three { bottom: 23%; left: 7%; animation-delay: 160ms; }
+.title-line--four { right: 17%; bottom: 12%; animation-delay: 240ms; }
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(35%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: clamp(2.8rem, 12vw, 5rem);
+  }
+
+  .title-line--camera { top: 31%; left: 7%; }
+  .title-line--three { bottom: 23%; left: 5%; }
+  .title-line--four { right: 8%; bottom: 13%; }
+}

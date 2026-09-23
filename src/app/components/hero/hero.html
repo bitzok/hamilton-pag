@@ -1,0 +1,19 @@
+<main class="hero" aria-label="Hamilton">
+  <video #backgroundVideo class="hero__video" autoplay muted loop playsinline preload="auto" (canplay)="startVideo(backgroundVideo)" aria-hidden="true">
+    <source src="/videos/main.mp4" type="video/mp4" />
+  </video>
+  <div class="hero__shade" aria-hidden="true"></div>
+
+  <header class="hero__header">
+    <a class="brand" href="/" aria-label="Hamilton, inicio">
+      <span class="brand__mark">→</span>
+      <span>hamilton</span>
+    </a>
+  </header>
+
+  <h1>
+    <a class="title-line title-line--camera" href="#behind-camera" (click)="scrollToBehindCamera($event)">detrás de cámara</a>
+    <a class="title-line title-line--three" href="#recordings" (click)="scrollToRecordings($event)">grabaciones</a>
+    <span class="title-line title-line--four">edición</span>
+  </h1>
+</main>
