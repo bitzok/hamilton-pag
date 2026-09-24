@@ -21,4 +21,10 @@ export class RecordingsComponent {
     video.loop = true;
     void video.play().catch(() => undefined);
   }
+
+  protected startGalleryVideo(video: HTMLVideoElement): void {
+    video.muted = true;
+    video.loop = true;
+    void video.play().catch(() => undefined);
+  }
 }
