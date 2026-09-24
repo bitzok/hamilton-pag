@@ -3,22 +3,22 @@
     <source src="/videos/recording.mp4" type="video/mp4" />
   </video>
   <div class="recordings__shade" aria-hidden="true"></div>
-          autoplay
 
   <div class="recordings__content">
     <h2 id="recordings-title">ELLOS<br />VINIERON<br />PRIMERO</h2>
   </div>
-          (canplay)="startGalleryVideo(galleryVideo)"
 
   <div class="recordings__gallery" aria-label="Galería de grabaciones">
     @for (video of galleryVideos; track video; let index = $index) {
       <article class="recording-card">
         <video
           class="recording-card__video"
+          autoplay
           muted
           loop
           playsinline
           preload="auto"
+          (canplay)="startGalleryVideo(galleryVideo)"
           #galleryVideo
           aria-label="Grabación {{ index + 1 }}"
         >
