@@ -24,10 +24,9 @@ export class RecordingsComponent implements AfterViewInit, OnDestroy {
 
       if (entry.isIntersecting) {
         video.preload = 'auto';
-        video.load();
-        video.addEventListener('loadeddata', () => {
-          void video.play().catch(() => undefined);
-        }, { once: true });
+        if (video.readyState === HTMLMediaElement.HAVE_NOTHING) {
+          video.load();
+        }
         void video.play().catch(() => undefined);
       } else {
         video.pause();
