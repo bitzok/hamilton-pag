@@ -59,12 +59,7 @@
 }
 
 .recording-card__video {
-  opacity: 0;
-  transition: opacity 260ms ease, filter 240ms ease, transform 360ms ease;
-}
-
-.recording-card__video.is-loaded {
-  opacity: 1;
+  transition: filter 240ms ease, transform 360ms ease;
 }
 
 .recording-card:nth-child(5) { aspect-ratio: 1.5 / 1; }
