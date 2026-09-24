@@ -21,4 +21,9 @@ export class HeroComponent {
     event.preventDefault();
     document.getElementById('recordings')?.scrollIntoView({ behavior: 'smooth' });
   }
+
+  protected scrollToEditing(event: Event): void {
+    event.preventDefault();
+    document.getElementById('editing')?.scrollIntoView({ behavior: 'smooth' });
+  }
 }
