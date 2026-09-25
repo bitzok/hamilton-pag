@@ -13,36 +13,58 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
-.editing__header,
-.editing__footer {
+/* ── Header: brand (izq) + versos (der) ── */
+.editing__header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
-  color: #777;
+}
+
+.editing__brand {
+  color: #e7e7e4;
   font-size: clamp(0.55rem, 0.8vw, 0.72rem);
   font-weight: 700;
   letter-spacing: 0.16em;
-  line-height: 1.5;
   text-transform: uppercase;
 }
 
-.editing__content {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(14rem, 0.7fr);
-  align-items: end;
-  gap: clamp(2rem, 10vw, 12rem);
-  width: min(100%, 100rem);
-  margin: auto 0;
-  padding: 12vh 0;
+.editing__verses {
+  margin: 0;
+  text-align: right;
+  color: #777;
+  font-size: clamp(0.55rem, 0.8vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  text-transform: uppercase;
 }
 
-.editing__eyebrow {
+/* ── Fila subtítulo ── */
+.editing__subtitle-row {
+  margin-top: 2rem;
+}
+
+.editing__subtitle {
   color: #e7e7e4;
+  font-size: clamp(0.65rem, 0.9vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-.editing__index {
-  color: #ff211a;
+/* ── Contenido principal (card) ── */
+.editing__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 4vh 0;
+}
+
+.editing__card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 h2 {
@@ -51,39 +73,53 @@ h2 {
   font-size: clamp(4rem, 10vw, 11rem);
   font-weight: 900;
   letter-spacing: -0.095em;
-  line-height: 0.76;
+  line-height: 0.86;
   text-transform: uppercase;
 }
 
-.editing__content p {
-  max-width: 25rem;
-  margin: 0 0 0.5rem;
-  color: #92928d;
-  font-family: Georgia, serif;
-  font-size: clamp(1rem, 1.4vw, 1.35rem);
-  line-height: 1.45;
+.editing__meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #777;
+  font-size: clamp(0.55rem, 0.8vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
+.editing__meta span + span::before {
+  content: ' . ';
+  margin-right: 1rem;
+}
+
+/* ── Footer: párrafo abajo izquierda ── */
 .editing__footer {
   border-top: 1px solid #242424;
   padding-top: 1rem;
+  max-width: 36rem;
 }
 
+.editing__footer p {
+  margin: 0;
+  color: #92928d;
+  font-family: Georgia, serif;
+  font-size: clamp(0.8rem, 1.1vw, 1rem);
+  line-height: 1.55;
+}
+
+/* ── Responsive ── */
 @media (max-width: 700px) {
-  .editing__content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    padding: 10vh 0;
-  }
-
-  .editing__content p {
-    max-width: 20rem;
-  }
-
-  .editing__header,
-  .editing__footer {
-    align-items: flex-start;
+  .editing__header {
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 1rem;
+  }
+
+  .editing__verses {
+    text-align: left;
+  }
+
+  h2 {
+    font-size: clamp(3rem, 12vw, 6rem);
   }
 }

@@ -1,5 +1,10 @@
 import { Component, HostListener, OnInit, signal } from '@angular/core';
 
+export interface PhotoItem {
+  file: string;
+  caption: string;
+}
+
 @Component({
   selector: 'app-behind-camera',
   templateUrl: './behind-camera.html',
@@ -11,49 +16,65 @@ export class BehindCameraComponent implements OnInit {
   protected readonly isLoading = signal(true);
   private loadedImages = 0;
 
-  protected readonly photos = [
-    'ANIME JAJAJ_5_11zon.webp',
-    'DSC03093_2_11zon.webp',
-    'DSC03094_4_11zon.webp',
-    'DSC03113 (1)_1_11zon.webp',
-    'DSC03115_4_11zon.webp',
-    'DSC03117 (2)_7_11zon.webp',
-    'IMG_6734 (1)_5_11zon.webp',
-    'IMG_6736_8_11zon.webp',
-    'IMG_6739_6_11zon.webp',
-    'IMG_6740_3_11zon.webp',
-    'IMG_6741_6_11zon.webp',
-    'IMG_6742_3_11zon.webp',
-    'IMG_6744_7_11zon.webp',
-    'IMG_6745_1_11zon.webp',
-    'IMG_9788_1_11zon.webp',
-    'IMG_9907_4_11zon.webp',
-    'IMG_9910_5_11zon.webp',
-    'IMG_9918 (1)_6_11zon.webp',
-    'IMG_9920_3_11zon.webp',
-    'IMG_9922 (1)_8_11zon.webp',
-    'IMG_9923_9_11zon.webp',
-    'IMG_9928_2_11zon.webp',
-    'IMG_9941_10_11zon.webp',
-    'IMG_9943_7_11zon.webp',
-    'IMG_9947 (2)_11_11zon.webp',
-    'IMG_9966 (1)_9_11zon.webp',
-    'IMG_9977_2_11zon.webp',
-    'IMG_9984_8_11zon.webp',
+  // ── Actores ─────────────────────────────────────────────────────────────
+  protected readonly cast = [
+    'Edward Santa Cruz',
+    'Belen Lazo Ino',
+    'Nicolas Esteves',
+    'Job Valencia',
+    'Santiago Melgar',
+    'Mauricio Vazques',
+    'Brandon Mateus',
+    'Gonzalo Torres',
+    'Luna Paredes',
+    'Adrian Noriega',
+    'Miguel Ángel',
+  ];
+
+  // ── Galería: edita caption para personalizar cada descripción ────────────
+  protected readonly photos: PhotoItem[] = [
+    { file: 'ANIME JAJAJ_5_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'DSC03093_2_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'DSC03094_4_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'DSC03113 (1)_1_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'DSC03115_4_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'DSC03117 (2)_7_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'IMG_6734 (1)_5_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'IMG_6736_8_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6739_6_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6740_3_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6741_6_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6742_3_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6744_7_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_6745_1_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9788_1_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9907_4_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9910_5_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9918 (1)_6_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'IMG_9920_3_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9922 (1)_8_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'IMG_9923_9_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9928_2_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9941_10_11zon.webp',             caption: 'Detrás de cámaras' },
+    { file: 'IMG_9943_7_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9947 (2)_11_11zon.webp',         caption: 'Detrás de cámaras' },
+    { file: 'IMG_9966 (1)_9_11zon.webp',          caption: 'Detrás de cámaras' },
+    { file: 'IMG_9977_2_11zon.webp',              caption: 'Detrás de cámaras' },
+    { file: 'IMG_9984_8_11zon.webp',              caption: 'Detrás de cámaras' },
   ];
 
   protected selectedPhoto: string | null = null;
 
   ngOnInit(): void {
-    this.preloadImages(this.photos);
+    this.preloadImages(this.photos.map(p => p.file));
   }
 
-  private preloadImages(photos: string[]): void {
-    photos.forEach((photo) => {
+  private preloadImages(files: string[]): void {
+    files.forEach((file) => {
       const image = new Image();
       image.onload = () => this.preloadedImageFinished();
       image.onerror = () => this.preloadedImageFinished();
-      image.src = `/images/${encodeURIComponent(photo).replace(/%2F/g, '/')}`;
+      image.src = `/images/${encodeURIComponent(file).replace(/%2F/g, '/')}`;
     });
   }
 
@@ -64,7 +85,7 @@ export class BehindCameraComponent implements OnInit {
     }
   }
 
-  protected get visiblePhotos(): string[] {
+  protected get visiblePhotos(): PhotoItem[] {
     const start = this.currentPage * this.pageSize;
     return this.photos.slice(start, start + this.pageSize);
   }
@@ -77,14 +98,12 @@ export class BehindCameraComponent implements OnInit {
     if (page < 0 || page >= this.totalPages || page === this.currentPage) {
       return;
     }
-
     this.currentPage = page;
   }
 
-  protected openPhoto(photo: string): void {
-    this.selectedPhoto = photo;
+  protected openPhoto(file: string): void {
+    this.selectedPhoto = file;
   }
-
 
   protected closePhoto(): void {
     this.selectedPhoto = null;

@@ -1,30 +1,39 @@
 <section id="behind-camera" class="behind-camera" aria-labelledby="behind-camera-title">
+
+  <!-- Título -->
   <div class="film-title">
     <h2 id="behind-camera-title">ELLOS VINIERON PRIMERO</h2>
     <p>por Patrick Hamilton</p>
   </div>
 
+  <!-- Carrusel de actores (arriba de la galería) -->
   <div class="cast-carousel" aria-label="Actores">
     <div class="cast-carousel__track">
-      <span>Edward Santa Cruz</span>
-      <i aria-hidden="true">•</i>
-      <span>Belen</span>
-      <i aria-hidden="true">•</i>
-      <span>Edward Santa Cruz</span>
-      <i aria-hidden="true">•</i>
-      <span>Belen</span>
-      <i aria-hidden="true">•</i>
+      @for (actor of cast; track actor) {
+        <span>{{ actor }}</span>
+        <i aria-hidden="true">•</i>
+      }
+      <!-- Duplicado para scroll infinito continuo -->
+      @for (actor of cast; track actor) {
+        <span>{{ actor }}</span>
+        <i aria-hidden="true">•</i>
+      }
     </div>
   </div>
 
+  <!-- Galería de fotos -->
   <div class="photo-grid" aria-label="Fotografías detrás de cámaras">
-    @for (photo of visiblePhotos; track photo) {
-      <button class="photo-card" type="button" (click)="openPhoto(photo)" [attr.aria-label]="'Ampliar ' + photo">
-        <img [src]="'/images/' + photo" [alt]="'Detrás de cámaras: ' + photo" loading="eager" decoding="async" />
-      </button>
+    @for (photo of visiblePhotos; track photo.file) {
+      <div class="photo-card">
+        <button type="button" (click)="openPhoto(photo.file)" [attr.aria-label]="'Ampliar ' + photo.file">
+          <img [src]="'/images/' + photo.file" [alt]="'Detrás de cámaras: ' + photo.file" loading="eager" decoding="async" />
+        </button>
+        <p class="photo-caption">{{ photo.caption }}</p>
+      </div>
     }
   </div>
 
+  <!-- Paginación -->
   <nav class="photo-pagination" aria-label="Paginación de fotografías">
     <button type="button" [disabled]="currentPage === 0 || isLoading()" (click)="goToPage(currentPage - 1)">← atrás</button>
     <span>{{ currentPage + 1 }} / {{ totalPages }}</span>
@@ -44,4 +53,5 @@
       <img class="photo-viewer__image" [src]="'/images/' + selectedPhoto" [alt]="'Fotografía ampliada: ' + selectedPhoto" (click)="$event.stopPropagation()" />
     </div>
   }
+
 </section>
